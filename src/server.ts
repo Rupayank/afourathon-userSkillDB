@@ -1,7 +1,14 @@
 import express from 'express';
 import morgan from 'morgan';
 import cookieSession from 'cookie-session';
-import { errorHandler, NotFoundError, currentUser, requireAuth } from '@hackathonskilldb/common-middlewares';
+import { requestValidate } from './middlewares/request-schema-validate';
+import {
+  validateRequest,
+  errorHandler,
+  NotFoundError,
+  currentUser,
+  requireAuth,
+} from '@hackathonskilldb/common-middlewares';
 import {
   getExpertise,
   getAllExpertise,
@@ -28,8 +35,8 @@ app.use(currentUser);
 // Routes
 app.get('/skill/expertise', requireAuth, getExpertise);
 app.get('/skill/expertise/all', requireAuth, getAllExpertise);
-app.post('/skill/expertise', requireAuth, addExpertise);
-app.put('/skill/expertise', requireAuth, updateExpertise);
+app.post('/skill/expertise', requireAuth, requestValidate, validateRequest, addExpertise);
+app.put('/skill/expertise', requireAuth, requestValidate, validateRequest, updateExpertise);
 app.delete('/skill/expertise', requireAuth, deleteExpertise);
 
 app.all('*', async (req, res) => {

@@ -27,9 +27,10 @@ async function getAllExpertise(req: Request, res: Response) {
 
 async function addExpertise(req: Request, res: Response) {
   try {
+    const Uid = req.currentUser.id;
     const { skillId, levelOfExperience, yearOfExperience } = req.body;
-    const expertise = await addUserSkillExpertise(req.currentUser.id, skillId, levelOfExperience, yearOfExperience);
-    res.status(200).send({ message: 'Added User expertise', response: expertise });
+    const expertise = await addUserSkillExpertise(Uid, skillId, levelOfExperience, yearOfExperience);
+    res.status(201).send({ message: 'Added User expertise', response: expertise });
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
