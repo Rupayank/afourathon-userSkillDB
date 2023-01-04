@@ -44,6 +44,6 @@ export const updateUserSkillExpertise = async (
   });
   return updateUserSkill;
 };
-export const deleteUserSkillExpertiseById = async (id: string) => {
+export const deleteUserSkillExpertise = async (id: string) => {
   return prisma.userSkill.delete({ where: { id } });
 };

@@ -10,7 +10,7 @@ import {
   requireAuth,
 } from '@hackathonskilldb/common-middlewares';
 import {
-  getExpertise,
+  getUserExpertise,
   getAllExpertise,
   addExpertise,
   updateExpertise,
@@ -33,7 +33,7 @@ app.use(
 app.use(currentUser);
 
 // Routes
-app.get('/skill/expertise', requireAuth, getExpertise);
+app.get('/skill/expertise', requireAuth, getUserExpertise);
 app.get('/skill/expertise/all', requireAuth, getAllExpertise);
 app.post('/skill/expertise', requireAuth, requestValidate, validateRequest, addExpertise);
 app.put('/skill/expertise', requireAuth, requestValidate, validateRequest, updateExpertise);
