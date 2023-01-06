@@ -1,6 +1,6 @@
 # Overview
 
-This is the standalone backend **Skill Service** of the Afourathon - **Skills Database Project**. It uses nodejs, prisma ORM & jest testing framework under the hood.
+This is the standalone backend **User Skill Service** of the Afourathon - **Skills Database Project**. It uses nodejs, prisma ORM & jest testing framework under the hood.
 
 # How to start
 
