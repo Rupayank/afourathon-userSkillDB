@@ -9,6 +9,7 @@ This is the standalone backend **User Skill Service** of the Afourathon - **Skil
 3. To run the test cases run the command `npm run test` in terminal.
 4. To start the server in developer mode run the command `npm run dev` in terminal.
 5. To start the server in production mode run the command `npm start` in terminal.
+6. To build the production ready packages run the command `npm build` in terminal.
 
 # Security
 
