@@ -2,6 +2,8 @@ import express from 'express';
 import morgan from 'morgan';
 import cookieSession from 'cookie-session';
 import { requestValidate } from './middlewares/request-schema-validate';
+import cors from 'cors';
+
 import {
   validateRequest,
   errorHandler,
@@ -22,6 +24,12 @@ const app = express();
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+const corsOptions = {
+  //To allow requests from client
+  origin: ['http://localhost:3000'],
+  credentials: true,
+  // exposedHeaders: ["set-cookie"],
+};
 
 app.set('trust proxy', true);
 app.use(
@@ -30,6 +38,7 @@ app.use(
     secure: false,
   }),
 );
+app.use(cors(corsOptions));
 app.use(currentUser);
 
 // Routes
