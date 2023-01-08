@@ -12,20 +12,41 @@ export const getAllUserSkillExpertise = async (): Promise<UserSkill[]> => {
 };
 
 export const addUserSkillExpertise = async (
+  id:string,
   userId: string,
-  skillId: string,
-  levelOfExperience: 'BASIC' | 'INTERMIDIATE' | 'ADVANCED',
-  yearOfExperience: number,
+  skill: string[],
+  domainName: string,
+  levelOfExperience?: 'BASIC' | 'INTERMIDIATE' | 'ADVANCED',
+  yearOfExperience?: number,
 ): Promise<UserSkill> => {
   const skillExpertise = await prisma.userSkill.create({
     data: {
+      id,
       userId,
-      skillId,
+      skill,
+      domainName,
       levelOfExperience,
       yearOfExperience,
     },
   });
   return skillExpertise;
+};
+
+export const updateUserSkill = async (
+  id: string,
+  skill: string[],
+  domainName: string
+) => {
+  const updateUserSkill = await prisma.userSkill.update({
+    where: {
+      id,
+    },
+    data: {
+      domainName: domainName,
+      skill: skill
+    },
+  });
+  return updateUserSkill;
 };
 
 export const updateUserSkillExpertise = async (
@@ -38,12 +59,13 @@ export const updateUserSkillExpertise = async (
       id,
     },
     data: {
-      levelOfExperience,
-      yearOfExperience,
+      levelOfExperience: levelOfExperience,
+      yearOfExperience: yearOfExperience,
     },
   });
   return updateUserSkill;
 };
+
 export const deleteUserSkillExpertise = async (id: string) => {
   return prisma.userSkill.delete({ where: { id } });
 };

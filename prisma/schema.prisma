@@ -21,7 +21,8 @@ model UserSkill {
   userId            String
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
-  skillId           String              @unique
+  domainName        String
+  skill             String[]
   levelOfExperience LEVEL_OF_EXPERIENCE @default(BASIC)
   yearOfExperience  Int                 @default(0)
 }
