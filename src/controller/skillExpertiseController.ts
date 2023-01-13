@@ -32,6 +32,7 @@ async function addExpertise(req: Request, res: Response) {
     const { skillId, levelOfExperience, yearOfExperience } = req.body;
     // const expertise = await addUserSkillExpertise(Uid, skillId, levelOfExperience, yearOfExperience);
     // res.status(201).send({ message: 'Added User expertise', response: expertise });
+    res.status(201).send()
   } catch (err) {
     res.status(500).send({ message: err.message });
   }

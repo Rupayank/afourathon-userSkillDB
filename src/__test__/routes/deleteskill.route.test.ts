@@ -18,7 +18,7 @@ describe('Delete Skill Route', () => {
       };
 
       const isExpertiseExist = jest
-        .spyOn(handlers, 'getUserSkillExpertise')
+        .spyOn(handlers, 'getUserSkillExpertiseById')
         //@ts-ignore
         .mockReturnValueOnce(payload);
 
