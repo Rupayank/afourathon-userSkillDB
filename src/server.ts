@@ -1,5 +1,6 @@
 import express from 'express';
 import morgan from 'morgan';
+import 'express-async-errors';
 import cookieSession from 'cookie-session';
 import { requestValidate } from './middlewares/request-schema-validate';
 import cors from 'cors';

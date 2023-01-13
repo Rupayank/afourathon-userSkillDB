@@ -6,6 +6,7 @@ import {
   addUserSkillExpertise,
   updateUserSkillExpertise,
   deleteUserSkillExpertise,
+  getUserSkillExpertiseById,
 } from '../handlers/skillExpertiseHandler';
 async function getUserExpertise(req: Request, res: Response) {
   try {
@@ -29,8 +30,8 @@ async function addExpertise(req: Request, res: Response) {
   try {
     const Uid = req.currentUser.id;
     const { skillId, levelOfExperience, yearOfExperience } = req.body;
-    const expertise = await addUserSkillExpertise(Uid, skillId, levelOfExperience, yearOfExperience);
-    res.status(201).send({ message: 'Added User expertise', response: expertise });
+    // const expertise = await addUserSkillExpertise(Uid, skillId, levelOfExperience, yearOfExperience);
+    // res.status(201).send({ message: 'Added User expertise', response: expertise });
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
@@ -59,7 +60,7 @@ async function deleteExpertise(req: Request, res: Response) {
   if (!id) {
     throw new BadRequestError('Id should be prsent');
   }
-  const expertiseExists = await getUserSkillExpertise(id);
+  const expertiseExists = await getUserSkillExpertiseById(id);
   if (!expertiseExists) {
     throw new BadRequestError('Expertise does not exist');
   }
