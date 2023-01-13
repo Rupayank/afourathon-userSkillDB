@@ -18,11 +18,12 @@ enum LEVEL_OF_EXPERIENCE {
 
 model UserSkill {
   id                String              @id @default(uuid())
+  skillId           String
   userId            String
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
   domainName        String
-  skill             String[]
+  skill             String
   levelOfExperience LEVEL_OF_EXPERIENCE @default(BASIC)
   yearOfExperience  Int                 @default(0)
 }

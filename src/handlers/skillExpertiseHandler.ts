@@ -1,8 +1,20 @@
 import { UserSkill } from '@prisma/client';
+import { Skill } from '../interface/asbEvent';
 import prisma from '../utils/db';
 
-export const getUserSkillExpertise = async (userId: string): Promise<UserSkill[]> => {
-  const skillExpertise = await prisma.userSkill.findMany({ where: { userId } });
+export const getUserSkillExpertise = async (
+  userId: string,
+): Promise<Omit<UserSkill, 'skillId' | 'userId' | 'createdAt' | 'updatedAt'>[]> => {
+  const skillExpertise = await prisma.userSkill.findMany({
+    where: { userId },
+    select: {
+      id: true,
+      domainName: true,
+      skill: true,
+      levelOfExperience: true,
+      yearOfExperience: true,
+    },
+  });
   return skillExpertise;
 };
 
@@ -11,39 +23,31 @@ export const getAllUserSkillExpertise = async (): Promise<UserSkill[]> => {
   return allSkillExpertise;
 };
 
-export const addUserSkillExpertise = async (
-  id:string,
-  userId: string,
-  skill: string[],
-  domainName: string,
-  levelOfExperience?: 'BASIC' | 'INTERMIDIATE' | 'ADVANCED',
-  yearOfExperience?: number,
-): Promise<UserSkill> => {
-  const skillExpertise = await prisma.userSkill.create({
-    data: {
-      id,
-      userId,
-      skill,
-      domainName,
-      levelOfExperience,
-      yearOfExperience,
-    },
+export const getUserSkillExpertiseById = async (id: string) =>{
+  return  await prisma.userSkill.findFirst({
+    where:{
+      id:id 
+    }
+  })
+}
+
+export const addUserSkillExpertise = async (userSkill: Skill[]) => {
+  const skillExpertise = await prisma.userSkill.createMany({
+    data: userSkill,
   });
-  return skillExpertise;
+  // return skillExpertise;
 };
 
-export const updateUserSkill = async (
-  id: string,
-  skill: string[],
-  domainName: string
-) => {
-  const updateUserSkill = await prisma.userSkill.update({
+export const updateUserDomain = async (userId: string, skillId: string, domainName: string) => {
+  const updateUserSkill = await prisma.userSkill.updateMany({
     where: {
-      id,
+      skillId: skillId,
+      AND: {
+        userId: userId,
+      },
     },
     data: {
       domainName: domainName,
-      skill: skill
     },
   });
   return updateUserSkill;
@@ -67,5 +71,39 @@ export const updateUserSkillExpertise = async (
 };
 
 export const deleteUserSkillExpertise = async (id: string) => {
-  return prisma.userSkill.delete({ where: { id } });
+  return prisma.userSkill.delete({
+    where: {
+      id: id,
+    },
+  });
+};
+
+export const deleteManyUserSkillExpertise = async (id: string[]) => {
+  return prisma.userSkill.deleteMany({
+    where: {
+      id: {
+        in: id,
+      },
+    },
+  });
+};
+
+export const getUserSkills = async (
+  userId: string,
+  skillId: string,
+): Promise<Pick<UserSkill, 'id' | 'skill' | 'domainName'>[]> => {
+  const skillExpertise = await prisma.userSkill.findMany({
+    where: {
+      userId,
+      AND: {
+        skillId,
+      },
+    },
+    select: {
+      id: true,
+      domainName: true,
+      skill: true,
+    },
+  });
+  return skillExpertise;
 };

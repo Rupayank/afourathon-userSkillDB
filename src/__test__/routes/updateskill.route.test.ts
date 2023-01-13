@@ -43,11 +43,12 @@ describe.only('Update Expertise Route', () => {
         levelOfExperience: 'INTERMIDIATE',
         yearOfExperience: 1,
       };
+      
 
-      // const isSkillExist = jest
-      //   .spyOn(handlers, 'getUserSkillExpertise')
-      //   //@ts-ignore
-      //   .mockReturnValueOnce(payload);
+      const isExpertiseExist = jest
+        .spyOn(handlers, 'getUserSkillExpertiseById')
+        //@ts-ignore
+        .mockReturnValueOnce({id:expertise});
 
       const expertise = jest
         .spyOn(handlers, 'updateUserSkillExpertise')
